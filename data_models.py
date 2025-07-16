@@ -1,4 +1,3 @@
-#from flask import app
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -22,7 +21,7 @@ class Book(db.Model):
         """
         Official representation of the Book object for debugging.
         """
-        return f'<Book {self.title!r}>'  # Using f-string for repr
+        return f'<Book {self.title!r}>'
 
     def __str__(self):
         """
