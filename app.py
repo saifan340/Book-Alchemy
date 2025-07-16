@@ -19,6 +19,11 @@ db.init_app(app)
 
 #with app.app_context():
    # db.create_all()
+@app.route('/')
+def home():
+    books = Book.query.all()
+    return render_template('home.html', books=books)
+
 
 @app.route('/add_author ', methods=['GET', 'POST'])
 def add_author():
@@ -39,8 +44,7 @@ def add_author():
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
     message = ''
-    authors = Author.query.all()  # Alle Autoren holen für das Dropdown-Menü
-
+    authors = Author.query.all()
     if request.method == 'POST':
         isbn = request.form['isbn']
         title = request.form['title']
