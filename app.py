@@ -27,7 +27,6 @@ def home():
     if search_query:
         query = query.filter(Book.title.ilike(f'%{search_query}%'))
 
-    # 📚 Sortierung anwenden
     if sort_by == 'title':
         query = query.order_by(Book.title)
     elif sort_by == 'author':
