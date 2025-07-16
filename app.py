@@ -13,23 +13,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "data
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
+with app.app_context():
+    db.create_all()
 
-"""with app.app_context():
-    db.create_all()"""
-
-"""@app.route('/')
-def home():
-    display home page
-    search_query = request.args.get('q')
-
-    if search_query:
-        books = Book.query.filter(Book.title.ilike(f'%{search_query}%')).all()
-    else:
-        books = Book.query.all()
-
-    return render_template('home.html', books=books)"""
 @app.route('/')
 def home():
+    """display home page"""
     search_query = request.args.get('q', '')
     sort_by = request.args.get('sort_by', '')
 
