@@ -1,4 +1,4 @@
-
+<!-- templates/home.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +11,7 @@
   <form action="/" method="GET">
   <input type="text" name="q" placeholder="Search for a book..." value="{{ request.args.get('q', '') }}">
 
-  <!-- 📊 Sortieren -->
+
    <select name="sort_by">
     <option value="">Sort by...</option>
     <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title</option>
@@ -24,7 +24,9 @@
   {% if books %}
     {% for book in books %}
       <div>
-        <h3>{{ book.title }} by {{ book.author.name }}</h3>
+
+        <h3>{{ book.title }}{% if book.author %} by {{ book.author.name }}{% else %} (Author unknown){% endif %}</h3>
+
 
         <form action="{{ url_for('delete_book', book_id=book.id) }}" method="POST" style="display:inline;">
           <button type="submit" onclick="return confirm('Are you sure?')">Delete Book</button>

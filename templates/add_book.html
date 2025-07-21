@@ -1,3 +1,4 @@
+<!-- templates/add_book.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,22 +8,28 @@
 <body>
     <h1>Add a New Book</h1>
 
-    {% if message %}
-        <p style="color: green;">{{ message }}</p>
-    {% endif %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style="color: red;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 
     <form method="POST">
-        <label>ISBN:</label><br>
-        <input type="text" name="isbn" required><br><br>
+        <label for="isbn">ISBN:</label><br>
+        <input type="text" name="isbn" id="isbn" required><br><br>
 
-        <label>Title:</label><br>
-        <input type="text" name="title" required><br><br>
+        <label for="title">Title:</label><br>
+        <input type="text" name="title" id="title" required><br><br>
 
-        <label>Publication Year:</label><br>
-        <input type="number" name="publication_year" required><br><br>
+        <label for="publication_year">Publication Year:</label><br>
+        <input type="number" name="publication_year" id="publication_year" required><br><br>
 
-        <label>Author:</label><br>
-        <select name="author_id" required>
+        <label for="author_id">Author:</label><br>
+        <select name="author_id" id="author_id" required>
             {% for author in authors %}
                 <option value="{{ author.id }}">{{ author.name }}</option>
             {% endfor %}
@@ -32,6 +39,6 @@
     </form>
 
     <br>
-    <a href="/">Back to Home</a>
+    <a href="{{ url_for('home') }}">← Back to Home</a>
 </body>
 </html>
